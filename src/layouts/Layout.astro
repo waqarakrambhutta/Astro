@@ -6,7 +6,7 @@ interface Props {
 	image?: string;
 }
 
-const { title, description="A community project of music producers and enthusi", image="/image/band.jpg" } = Astro.props;
+const { title, description="A community project of music producers and enthusi", image="/images/band.jpg" } = Astro.props;
 ---
 
 
@@ -21,7 +21,7 @@ const { title, description="A community project of music producers and enthusi",
 		<meta property="og:image" content={image}/>
 		<title>{title}</title>
 	</head>
-	<body>
+	<body class="min-h-screen">
 		<Header/>
 		<slot />
 	</body>
