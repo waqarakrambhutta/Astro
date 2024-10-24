@@ -6,33 +6,41 @@ import Main from "../../components/Main.astro";
 import PostList from "../../components/PostList.astro";
 import Layout from "../../layouts/Layout.astro";
 import { Image } from "astro:assets";
+import { getEntryBySlug } from "astro:content";
 
-export const prerender = true
 
-interface Posts{
-    slug:string;
+const {slug} = Astro.params;
+const post = await getEntryBySlug('posts', slug as string)
+if(!post){
+    return Astro.redirect("/404")
 }
 
-export const getStaticPaths = async () => {
-    const posts = await getCollection("posts")
-    const paths = posts.map((post: Posts) =>{
-        return {
-            params:{
-                slug: post.slug
-            },
-            props:{
-                post
-            }
-        }
-    })
-    return paths
-}
 
-type Props = {
-    post: CollectionEntry<"posts">
-}
 
-const {post} = Astro.props;
+// interface Posts{
+//     slug:string;
+// }
+
+// export const getStaticPaths = async () => {
+//     const posts = await getCollection("posts")
+//     const paths = posts.map((post: Posts) =>{
+//         return {
+//             params:{
+//                 slug: post.slug
+//             },
+//             props:{
+//                 post
+//             }
+//         }
+//     })
+//     return paths
+// }
+
+// type Props = {
+//     post: CollectionEntry<"posts">
+// }
+
+// const {post} = Astro.props;
 const {Content} = await post.render()
 
 ---
